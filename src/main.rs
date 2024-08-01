@@ -1,13 +1,15 @@
+// RUSTFLAGS='-C target-cpu=native' cargo run --release
 #![allow(non_camel_case_types)]
+#![allow(non_snake_case)]
 
 mod rng;
 
 use core::arch::x86_64::*;
 use simd_rs::*;
 
-unsafe fn perf_test() {
-    const N: usize = 4096;
-    const L: usize = 16 * 4096;
+unsafe fn perf_test(N: usize, L: usize) {
+    println!("============================================================");
+    println!("perf_test({N}, {L})");
     let n_bytes = N * L;
     let mut data: Vec<u8> = Vec::with_capacity(n_bytes);
     for i in 0..n_bytes / 8 {
@@ -36,17 +38,17 @@ unsafe fn perf_test() {
         }
         println!("non simd: {:?}", t0.elapsed());
 
-        // let t0 = std::time::Instant::now();
-        // for i in 0..N {
-        //     let slice = get_slice(i);
-        //     let index = find_ascii_non_simd_unrolled(slice);
-        //     non_simd_unrolled_results[i] = index;
-        // }
-        // println!("non simd unrolled: {:?}", t0.elapsed());
+        let t0 = std::time::Instant::now();
+        for i in 0..N {
+            let slice = get_slice(i);
+            let index = find_ascii_non_simd_unrolled(slice);
+            non_simd_unrolled_results[i] = index;
+        }
+        println!("non simd unrolled: {:?}", t0.elapsed());
 
         for i in 0..N {
             assert_eq!(simd_results[i], non_simd_results[i], "{:?}", get_slice(i));
-            // assert_eq!(non_simd_results[i], non_simd_unrolled_results[i], "{:?}", get_slice(i));
+            assert_eq!(non_simd_results[i], non_simd_unrolled_results[i], "{:?}", get_slice(i));
         }
     }
 }
@@ -172,7 +174,10 @@ fn check_find_ascii(data: &[u8]) {
 fn main() {
     // unsafe { run(); }
     // check();
-    unsafe { perf_test(); }
+    unsafe { perf_test(4096, 4096); }
+    unsafe { perf_test(16 * 4096, 4096); }
+    unsafe { perf_test(16 * 4096, 8 * 4096); }
+    unsafe { perf_test(16 * 4096, 1024); }
 }
 
 fn check() {
