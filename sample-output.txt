@@ -1,0 +1,56 @@
+============================================================
+perf_test(4096, 4096)
+simd: 73.518µs
+non simd: 114.484µs
+non simd unrolled: 102.246µs
+simd: 72.166µs
+non simd: 116.303µs
+non simd unrolled: 101.419µs
+simd: 69.556µs
+non simd: 117.617µs
+non simd unrolled: 100.162µs
+simd: 69.146µs
+non simd: 113.143µs
+non simd unrolled: 100.355µs
+============================================================
+perf_test(65536, 4096)
+simd: 1.370889ms
+non simd: 2.239145ms
+non simd unrolled: 1.925961ms
+simd: 1.252726ms
+non simd: 2.008988ms
+non simd unrolled: 1.863103ms
+simd: 1.254667ms
+non simd: 2.12718ms
+non simd unrolled: 1.88983ms
+simd: 1.279984ms
+non simd: 2.378555ms
+non simd unrolled: 1.89618ms
+============================================================
+perf_test(65536, 32768)
+simd: 1.544228ms
+non simd: 2.601864ms
+non simd unrolled: 2.367108ms
+simd: 1.660851ms
+non simd: 2.591091ms
+non simd unrolled: 2.247025ms
+simd: 1.497596ms
+non simd: 2.579373ms
+non simd unrolled: 2.173034ms
+simd: 1.487433ms
+non simd: 2.521906ms
+non simd unrolled: 2.172978ms
+============================================================
+perf_test(65536, 1024)
+simd: 1.040629ms
+non simd: 1.818342ms
+non simd unrolled: 1.568977ms
+simd: 1.011197ms
+non simd: 1.946358ms
+non simd unrolled: 1.640291ms
+simd: 1.032575ms
+non simd: 2.007397ms
+non simd unrolled: 1.641185ms
+simd: 1.031756ms
+non simd: 2.033282ms
+non simd unrolled: 1.677334ms
